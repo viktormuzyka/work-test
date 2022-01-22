@@ -1,14 +1,21 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.12
 Grid {
-    x: 15; y: 15; width: 400; height: 400
-
-    columns: 10; rows: 10; spacing: 1
+        x: 0; y: 0; width: 300; height: 300
+    //anchors.fill: parent
+    columns: 10; rows: 10; spacing: 0
 
     Repeater {
         model: 100
-        Rectangle { color: "blue"; width: 30; height: 30; border { width: 1; color: "black" }}
+        Rectangle { color: "blue"; width: 30; height: 30; border { width: 1; color: "black" }
+            MouseArea {
+                    anchors.fill: parent
+
+                    onClicked: {
+                        parent.color = 'red  '
+                        console.log("clicked ",  (parent.x + x)/30 ," ",  (parent.y + y)/30);
+                    }
+            }
+        }
     }
-
-
 }
