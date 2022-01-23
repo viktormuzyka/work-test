@@ -13,11 +13,11 @@ CONFIG += c++11
 SOURCES += \
     main.cpp \
     mainwindow.cpp \
-    viewer.cpp
+    unit.cpp
 
 HEADERS += \
     mainwindow.h \
-    viewer.h
+    unit.h
 
 FORMS += \
     mainwindow.ui
@@ -28,4 +28,4 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 DISTFILES += \
-    MyRect.qml
+    grid.qml

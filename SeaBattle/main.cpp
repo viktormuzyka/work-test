@@ -6,22 +6,24 @@
 #include <QtQuick/QQuickView>
 #include <QtQuick/QQuickItem>
 #include <QSize>
+#include <QObject>
+#include "unit.h"
+
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    MainWindow w;
     QQuickView view;
+   // UNIT unit;
     view.setResizeMode(QQuickView::SizeViewToRootObject);
 
-            view.setSource(QUrl::fromLocalFile("MyRect.qml"));
+    view.setSource(QUrl::fromLocalFile("grid.qml"));
 
-            /*QQuickItem *item = view.rootObject()->findChild<QQuickItem*>("myRect");
-            if (item){            
-               //item->setProperty("width", 1000);
-            }*/
+    /*QObject *object = view.rootObject();
+    object->setProperty("color", "yellow");
+    QQmlProperty(object, "color").write("yellow");*/
 
-            view.show();
-    //w.show();
+    view.show();
+
     return a.exec();
 }
