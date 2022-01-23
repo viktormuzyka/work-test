@@ -17,8 +17,9 @@ protected slots:
 
     void mouseClickEvent(QMouseEvent* e);
 
-private:
+public:
     char key[10][10]; // '0' - sea, '1' - ship, '2' - dead, '3' - miss
+    void start();
 };
 
 #endif
