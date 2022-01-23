@@ -13,7 +13,7 @@ void UNIT::start(){
         }
     }
 }
-
-void UNIT::mouseClickEvent(QMouseEvent* e){
-    qDebug()<<"!";
+void UNIT::cppSlot(int x, int y){
+    qDebug()<<"Cpp accepted: x="<<x<<" y= "<<y;
+    emit ToQml('a');
 }

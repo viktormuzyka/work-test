@@ -10,12 +10,10 @@ public:
     explicit UNIT(QObject *parent = 0);
 
 signals:
+    void ToQml(char symb);
 
-    void sendToQml(int count);
-
-protected slots:
-
-    void mouseClickEvent(QMouseEvent* e);
+public slots:
+    void cppSlot(int x, int y);
 
 public:
     char key[10][10]; // '0' - sea, '1' - ship, '2' - dead, '3' - miss

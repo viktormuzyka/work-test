@@ -35,6 +35,11 @@ int main(int argc, char *argv[])
      */
         view.setResizeMode(QQuickView::SizeViewToRootObject);
         view.setSource(QUrl::fromLocalFile("grid.qml"));
+        QObject* obj=new UNIT();
+        QObject* root=view.rootObject();
+        QObject::connect(root, SIGNAL(send(int, int)), obj, SLOT(cppSlot(int, int)));
+
+        QObject::connect(obj, SIGNAL(ToQml(char)), root, SLOT(fromCpp(char)));
         /*QObject *object = view.rootObject();
         object->setProperty("color", "yellow");
         QQmlProperty(object, "color").write("yellow");*/
