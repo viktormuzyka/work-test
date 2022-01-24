@@ -2,11 +2,20 @@ import QtQuick 2.0
 import QtQuick.Layouts 1.12
 Grid {
     signal send(int x, int y)
-    function fromCpp(symb){
-        console.log("help")
+    signal receiveRed()
+    signal receiveGray()
+    onReceiveRed: {
+        console.log("hello from QML");
+        setProperty("color", 'red')
+        console.log("Good Shoot!");
     }
+    onReceiveGray: {
+        console.log("hello from QML");
+        setProperty("color", 'gray')
+        console.log("Miss!")
+    }
+
     x: 0; y: 0; width: 300; height: 300
-    //anchors.fill: parent
     columns: 10; rows: 10; spacing: 0
 
     Repeater {
@@ -16,18 +25,6 @@ Grid {
                     id: area
                     anchors.fill: parent
                     onClicked: send((parent.x+mouseX)/30, (parent.y+mouseY)/30)
-                    /*Connections {
-                        target: unit
-                        /*sendToQml: {
-                            parent.color = 'red  '
-                            console.log("clicked ",  (parent.x + x)/30 ," ",  (parent.y + y)/30);
-                       }}*/
-
-                    /*onClicked: {
-
-                        parent.color = 'red  '
-                        console.log("clicked ",  (parent.x + x)/30 ," ",  (parent.y + y)/30);
-                    }*/
             }
         }
     }
