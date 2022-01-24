@@ -10,8 +10,6 @@
 #include <QString>
 #include "unit.h"
 
-
-
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
@@ -32,12 +30,15 @@ int main(int argc, char *argv[])
         QObject* obj = unit;
         QObject* root=view.rootObject();
         view.rootContext()->setContextProperty("UNIT", unit);
+        //unit->view = &view;
         QObject::connect(root, SIGNAL(send(int, int)), obj, SLOT(cppSlot(int, int)));
         /*QObject::connect(root, SIGNAL(ToQmlRed()), obj, SLOT(receiveRed()));
         QObject::connect(root, SIGNAL(ToQmlGray()), obj, SLOT(receiveGray()));*/
         /*QObject::connect(obj, SIGNAL(ToQmlRed()), root, SLOT(receiveRed()));
         QObject::connect(obj, SIGNAL(ToQmlGray()), root, SLOT(receiveGray()));*/
-
+        /*
+         * Change color of rectangle from main
+         * /
         /*QObject *object = view.rootObject();
         object->setProperty("color", "yellow");
         QQmlProperty(object, "color").write("yellow");*/
