@@ -1,19 +1,37 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.12
 Grid {
+    property type name: value
     signal send(int x, int y)
-    signal receiveRed()
-    signal receiveGray()
-    onReceiveRed: {
-        console.log("hello from QML");
-        setProperty("color", 'red')
-        console.log("Good Shoot!");
+    /*signal receiveRed()
+    signal receiveGray()*/
+    Connections: {
+        target: UNIT
+        onToQmlRed: {
+            console.log("hello from QML");
+            //setProperty("color", 'red')
+            console.log("qml: Good Shoot!");
+        }
+
     }
-    onReceiveGray: {
-        console.log("hello from QML");
-        setProperty("color", 'gray')
-        console.log("Miss!")
+    Connections: {
+        target: UNIT
+        onToQmlGray: {
+            console.log("hello from QML");
+            //setProperty("color", 'gray')
+            console.log("qml: Miss!")
+        }
     }
+    /*onToQmlRed: {
+        console.log("hello from QML");
+        //setProperty("color", 'red')
+        console.log("qml: Good Shoot!");
+    }
+    onToQmlGray: {
+        console.log("hello from QML");
+        //setProperty("color", 'gray')
+        console.log("qml: Miss!")
+    }*/
 
     x: 0; y: 0; width: 300; height: 300
     columns: 10; rows: 10; spacing: 0

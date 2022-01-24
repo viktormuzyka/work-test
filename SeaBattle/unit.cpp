@@ -27,16 +27,16 @@ void UNIT::print(){
     }
 }
 void UNIT::cppSlot(int x, int y){
-    qDebug()<<"Shoot: x="<<x<<" y= "<<y;
+    qDebug()<<"Area: x="<<x<<" y= "<<y;
     if (this->key[x][y]=='0'){  // '0' - sea, '1' - ship, '2' - dead zone, '3' - miss
         key[x][y]='3';
-        qDebug()<<"cpp: x="<<x<<" y= "<<y<<" miss";
-        emit this->ToQmlRed();
+        qDebug()<<"cpp: x="<<x<<" y= "<<y<<" miss, state '3'";
+        emit toQmlGray();
     } else if (this->key[x][y]=='1') {
         key[x][y]='2';
-        qDebug()<<"cpp: x="<<x<<" y= "<<y<<" shoot in"; //in ideal add state - dead ship
-        emit this->ToQmlGray();
+        qDebug()<<"cpp: x="<<x<<" y= "<<y<<" hit, state '2'"; //in ideal add state - dead ship
+        emit toQmlRed();
     } else {
-        qDebug("You are already shoot in this area! Miss!");
+        qDebug("You have already shot into this area!");
     }
 }

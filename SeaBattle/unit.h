@@ -10,8 +10,8 @@ public:
     explicit UNIT(QObject *parent = 0);
 
 signals:
-    void ToQmlRed();
-    void ToQmlGray();
+    void toQmlRed();
+    void toQmlGray();
 
 public slots:
     void cppSlot(int x, int y);

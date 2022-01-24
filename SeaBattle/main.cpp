@@ -31,15 +31,17 @@ int main(int argc, char *argv[])
         view.setSource(QUrl::fromLocalFile("grid.qml"));
         QObject* obj = unit;
         QObject* root=view.rootObject();
+        view.rootContext()->setContextProperty("UNIT", unit);
         QObject::connect(root, SIGNAL(send(int, int)), obj, SLOT(cppSlot(int, int)));
-
-       /* QObject::connect(obj, SIGNAL(ToQmlRed()), root, SLOT(ReceiveRed()));
-        QObject::connect(obj, SIGNAL(ToQmlGray()), root, SLOT(ReceiveGray()));*/
+        /*QObject::connect(root, SIGNAL(ToQmlRed()), obj, SLOT(receiveRed()));
+        QObject::connect(root, SIGNAL(ToQmlGray()), obj, SLOT(receiveGray()));*/
+        /*QObject::connect(obj, SIGNAL(ToQmlRed()), root, SLOT(receiveRed()));
+        QObject::connect(obj, SIGNAL(ToQmlGray()), root, SLOT(receiveGray()));*/
 
         /*QObject *object = view.rootObject();
         object->setProperty("color", "yellow");
         QQmlProperty(object, "color").write("yellow");*/
         view.show();
-
+   // delete unit;
     return a.exec();
 }
