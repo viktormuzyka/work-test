@@ -1,27 +1,26 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.12
 Grid {
-    property type name: value
     signal send(int x, int y)
-    /*signal receiveRed()
-    signal receiveGray()*/
-    Connections: {
+    Connections {
         target: UNIT
         onToQmlRed: {
             console.log("hello from QML");
-            //setProperty("color", 'red')
+            //parent.color = "red"
             console.log("qml: Good Shoot!");
         }
 
     }
-    Connections: {
+    Connections {
         target: UNIT
         onToQmlGray: {
             console.log("hello from QML");
-            //setProperty("color", 'gray')
+            //parent.color = "gray"
             console.log("qml: Miss!")
         }
     }
+    /*signal receiveRed()
+    signal receiveGray()*/
     /*onToQmlRed: {
         console.log("hello from QML");
         //setProperty("color", 'red')
@@ -43,6 +42,7 @@ Grid {
                     id: area
                     anchors.fill: parent
                     onClicked: send((parent.x+mouseX)/30, (parent.y+mouseY)/30)
+
             }
         }
     }
