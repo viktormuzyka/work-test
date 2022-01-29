@@ -1,48 +1,38 @@
-#include "mainwindow.h"
-#include <QtQml>
-#include <iostream>
-#include <QApplication>
-#include <QWidget>
-#include <QtQuick/QQuickView>
-#include <QtQuick/QQuickItem>
-#include <QSize>
-#include <QObject>
-#include <QString>
+#include <QGuiApplication>
+#include <QQmlApplicationEngine>
+#include <QQuickView>
+#include <QQuickItem>
+#include <QDebug>
+#include <QQmlContext>
 #include "unit.h"
 
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);
-    QQuickView view;
-    UNIT *unit = new UNIT;
-    //QString line;
-    //build field
-    unit->start();
+    QGuiApplication app(argc, argv);
+
+    QQmlApplicationEngine engine;
     /*
-     * Print field with ship
+     * load qml
      */
-    unit->print();
+    const QUrl url(QStringLiteral("qrc:/main.qml"));
+    QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
+                     &app, [url](QObject *obj, const QUrl &objUrl) {
+        if (!obj && url == objUrl)
+            QCoreApplication::exit(-1);
+    }, Qt::QueuedConnection);
     /*
-     * QML Field
+     * load from file and start game
      */
-        view.setResizeMode(QQuickView::SizeViewToRootObject);
-        view.setSource(QUrl::fromLocalFile("grid.qml"));
-        QObject* obj = unit;
-        QObject* root=view.rootObject();
-        view.rootContext()->setContextProperty("UNIT", unit);
-        //unit->view = &view;
-        QObject::connect(root, SIGNAL(send(int, int)), obj, SLOT(cppSlot(int, int)));
-        /*QObject::connect(root, SIGNAL(ToQmlRed()), obj, SLOT(receiveRed()));
-        QObject::connect(root, SIGNAL(ToQmlGray()), obj, SLOT(receiveGray()));*/
-        /*QObject::connect(obj, SIGNAL(ToQmlRed()), root, SLOT(receiveRed()));
-        QObject::connect(obj, SIGNAL(ToQmlGray()), root, SLOT(receiveGray()));*/
-        /*
-         * Change color of rectangle from main
-         * /
-        /*QObject *object = view.rootObject();
-        object->setProperty("color", "yellow");
-        QQmlProperty(object, "color").write("yellow");*/
-        view.show();
-   // delete unit;
-    return a.exec();
+    unit* player= new unit;
+    player->print();
+    QObject* obj= player;
+    auto cont= engine.rootContext();
+    cont->setContextProperty("object", obj);
+    engine.load(url);
+    QObject *root = engine.rootObjects()[0];
+    QObject::connect(root, SIGNAL(send(int, int, int)), obj, SLOT(cppSlot(int, int, int)));
+
+
+
+    return app.exec();
 }
