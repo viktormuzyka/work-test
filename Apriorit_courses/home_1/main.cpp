@@ -24,8 +24,8 @@ int main() {
 			std::unique_ptr<writercreator> creator(new txtwritercreator());
 			std::unique_ptr<writer> main_file (creator->createnewfilewriter(data));
 
-			/*creator = std::make_unique<csvwritercreator>();
-			main_file.reset(creator->createnewfilewriter(data));*/
+			creator = std::make_unique<csvwritercreator>();
+			main_file.reset(creator->createnewfilewriter(data));
 
 		} while (FindNextFile(hFind, &data));
 		FindClose(hFind);
