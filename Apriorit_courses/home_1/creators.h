@@ -7,7 +7,7 @@
 class writercreator
 {
 public:	
-	virtual write* createnewfilewriter(WIN32_FIND_DATA &data) = 0;
+	virtual writer* createnewfilewriter(WIN32_FIND_DATA &data) = 0;
 	virtual ~writercreator() = default;
 };
 
