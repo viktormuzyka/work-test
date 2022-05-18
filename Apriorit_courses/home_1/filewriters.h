@@ -7,13 +7,15 @@
 
 class writer {
  public:
-  virtual ~writer() {}
-  writer() = default;
-  writer(WIN32_FIND_DATA &data);
+  virtual ~writer() = default;
+  virtual void write_to_file(WIN32_FIND_DATA &data) = 0;
 };
 class txtwriter : public writer {
  public:
-  txtwriter(WIN32_FIND_DATA &data){
+	txtwriter(WIN32_FIND_DATA &data) {
+		write_to_file(data);
+	}
+  virtual void write_to_file(WIN32_FIND_DATA &data) override{
     std::ofstream out;
   			out.exceptions(std::fstream::badbit);
 	   		try {
@@ -31,7 +33,10 @@ class txtwriter : public writer {
 };
 class csvwriter : public writer {
  public:
-  csvwriter(WIN32_FIND_DATA &data){
+ 	csvwriter(WIN32_FIND_DATA &data) {
+		write_to_file(data);
+	}
+ 	virtual void  write_to_file(WIN32_FIND_DATA &data) override{
     std::ofstream csv;
 		    csv.exceptions(std::fstream::badbit);
 		    try {
@@ -47,4 +52,3 @@ class csvwriter : public writer {
 		    }
   }
 };
-

@@ -7,11 +7,11 @@
 class writercreator
 {
 public:	
-	virtual write* createnewfilewriter(WIN32_FIND_DATA &data) = 0;
+	virtual writer* createnewfilewriter(WIN32_FIND_DATA &data) = 0;
 	virtual ~writercreator() = default;
 };
 
-class txtwritercreator : public virtual writercreator
+class txtwritercreator : virtual public writercreator
 {
 public:
 	 writer* createnewfilewriter(WIN32_FIND_DATA &data) override{
@@ -22,7 +22,7 @@ public:
 class csvwritercreator : public virtual writercreator
 {
 public:
-	writer* createnewfilewriter(WIN32_FIND_DATA &data) override {
+	 writer* createnewfilewriter(WIN32_FIND_DATA &data) override{
 		return (new csvwriter(data));
 	}
 };
