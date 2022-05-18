@@ -8,9 +8,14 @@
 int main() {
 	
 	WIN32_FIND_DATA data;
+<<<<<<< HEAD
 	std::vector<WIN32_FIND_DATA> files;	
 	std::cout<<1<<std::endl;
 	
+=======
+	std::string path;
+	std::vector<WIN32_FIND_DATA> files;
+>>>>>>> 3b1dcc5933767bc6e8ca5fb333747600437f860d
 	try {
 		const HANDLE hFind = FindFirstFile("D:/a little bit of UNIV/4sem/web//*", &data);
 		if (hFind == INVALID_HANDLE_VALUE) {
