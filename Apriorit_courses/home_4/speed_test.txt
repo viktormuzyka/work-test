@@ -1,0 +1,4 @@
+List
+        Push 10mln elements: 12022 ms
+Stoward list
+        Push 10mln elements: 19448 ms
