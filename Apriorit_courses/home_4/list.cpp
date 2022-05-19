@@ -3,19 +3,21 @@
 #include <memory>
 #include <forward_list>
 
+template <typename T>
 struct Node {
-	int data;
-	std::unique_ptr<Node> next;
-	Node(int data) : data{ data }, next{ nullptr } {}
+	T data;
+	std::unique_ptr<Node<T>> next;
+	Node(T data) : data{ data }, next{ nullptr } {}
 	~Node() {
 		//std::cout << "Destroy node with data: " << data << '\n';
 	}
 };
+template <typename T>
 struct List {
 	List() : head{ nullptr } {};
 
-	void push(int data) {
-		auto temp{ std::make_unique<Node>(data) };
+	void push(T data) {
+		auto temp{ std::make_unique<Node<T>>(data) };
 		if (head) {
 			temp->next = std::move(head);
 			head = std::move(temp);
@@ -25,19 +27,59 @@ struct List {
 			head = std::move(temp);
 		}
 	}
-	friend std::ostream& operator<<(std::ostream& os, const List& list);
+	int get_size() {
+		int size=0;
+		Node<T>* head = this->head.get();
+		while (head) {
+			head = head->next.get();
+			size++;
+		}
+		return size;
+	}
+	void delete_item(T data_to_remove) {
+		Node<T>* head = this->head.get();
+		Node<T>* before_head = this->head.get();
+		bool first_step = 1;
+		while (head) {
+			//std::cout << head->data << " != " << data_to_remove << std::endl;
+			if (head->data == data_to_remove) {
+				if (first_step) {
+					this->head = std::move(head->next);
+					return;
+				}
+				else {
+					before_head->next = std::move(head->next);
+					head = nullptr;
+					return;
+				}
+			}
+			before_head = head;
+			head = head->next.get();
+			first_step = 0;
+
+		}
+		return;
+	}
+	void print() {
+		Node<T>* head = this->head.get();
+		while (head) {
+			std::cout << head->data << " ";
+			head = head->next.get();
+		}
+		std::cout << std::endl;
+	}
 	void clean() {
 		while (head) {
 			head = std::move(head->next);
 		}
 	}
 	List(const List& list) {
-		Node* root = list.head.get();
+		Node<T>* root = list.head.get();
 
-		std::unique_ptr<Node> new_head{ nullptr };
-		Node* pnew_head{ nullptr };
+		std::unique_ptr<Node<T>> new_head{ nullptr };
+		Node<T>* pnew_head{ nullptr };
 		while (root) {
-			auto temp{ std::make_unique<Node>(root->data) };
+			auto temp{ std::make_unique<Node<T>>(root->data) };
 			if (new_head == nullptr) {
 				new_head = std::move(temp);
 				pnew_head = new_head.get();
@@ -50,7 +92,6 @@ struct List {
 		}
 		head = std::move(new_head);
 	}
-
 
 	List(List&& list) {
 		head = std::move(list.head);
@@ -68,7 +109,7 @@ struct List {
 	}
 	void reverse() {
 		List tmp;
-		Node* root = head.get();
+		Node<T>* root = head.get();
 		while (root) {
 			tmp.push(root->data);
 			root = root->next.get();
@@ -78,45 +119,42 @@ struct List {
 	}
 
 private:
-	std::unique_ptr<Node> head;
+	std::unique_ptr<Node<T>> head;
 };
-std::ostream& operator<<(std::ostream& os, const List& list) {
-	Node* head = list.head.get();
-	while (head) {
-		os << head->data << ' ';
-		head = head->next.get();
-	}
-	return os;
-}
+
 
 int main() {
-	List list;
+	List<int> list;
 
      for (int i = 0; i < 10; ++i) {
          list.push(i);
-
 	}
-     std::cout << list << '\n';
+	 list.push(5);
+	 list.print();
+	 list.delete_item(5);
+	 list.delete_item(8);
+	 list.print();
 
      list.clean();
-     std::cout << list << '\n';
+	 list.print();
 
      list.push(-1);
      list.push(-2);
      list.push(-3);
      list.push(-4);
      list.push(-5);
-     std::cout << list << '\n';
+	 list.print();
 
-     List list2 = list;
-     std::cout << list2 << '\n';
+	 List<int> list2 = list;
+	 list2.print();
 
-     List list3 = std::move(list);
-     std::cout << list << '\n';
-    std::cout << list3 << '\n';
+	 List<int> list3 = std::move(list);
+	 list.print();
+	 list3.print();
 
      list3.reverse();
-     std::cout << list3 << '\n';
+	 list3.print();
+	 std::cout << list3.get_size() << std::endl;
 	/*
 	*speed test
 	*/
@@ -132,7 +170,7 @@ int main() {
 	search += end - start;
 	std::cout << "	Push 10mln elements: " << search << " ms" << std::endl;
 
-	std::cout << "Stoward list" << std::endl;
+	std::cout << "Forward list" << std::endl;
 	start = clock();
 	std::forward_list<int> f_list;
 	for (int i = 0; i < 10000000; ++i) {
