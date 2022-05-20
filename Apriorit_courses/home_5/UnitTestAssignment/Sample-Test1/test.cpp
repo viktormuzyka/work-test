@@ -1,6 +1,13 @@
 #include "pch.h"
 #include "../functions.h"
 /*maybe in GetProductsAmount UNSIGNED int better, because we can enter negative data*/
+TEST(GetProductsAmountTest, FalseBigData) {
+	std::vector<int> prices{ 2147483647, 2147483647, 2147483647 };
+	int amountOfMoney = 2147483647;
+	EXPECT_EQ(GetProductsAmount(prices, amountOfMoney), 1);
+
+	EXPECT_EQ(GetProductsAmount({ 2147483647, 2147483647 }, 2147483647), 1);
+}
 TEST(GetProductsAmountTest, TrueDataInVectorBelowZero) {
 	std::vector<int> prices{ -1,-10,-2,-5 };
 	int amountOfMoney = 0;
