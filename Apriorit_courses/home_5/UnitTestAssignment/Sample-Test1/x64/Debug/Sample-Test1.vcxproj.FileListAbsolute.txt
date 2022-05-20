@@ -1,1 +1,2 @@
 D:\OneDrive\Робочий стіл\UnitTestAssignment\Sample-Test1\x64\Debug\Sample-Test1.vcxproj.CopyComplete
+D:\UNIV\work-test\Apriorit_courses\home_5\UnitTestAssignment\Sample-Test1\x64\Debug\Sample-Test1.vcxproj.CopyComplete

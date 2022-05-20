@@ -1,5 +1,24 @@
 #include "pch.h"
 #include "../functions.h"
+/*maybe in GetProductsAmount UNSIGNED int better, because we can enter negative data*/
+TEST(GetProductsAmountTest, TrueDataInVectorBelowZero) {
+	std::vector<int> prices{ -1,-10,-2,-5 };
+	int amountOfMoney = 0;
+	EXPECT_EQ(GetProductsAmount(prices, amountOfMoney), 4);
+
+	prices = { -10, -9 };
+	amountOfMoney = 100;
+	EXPECT_EQ(GetProductsAmount(prices, amountOfMoney), 2);
+}
+TEST(GetProductsAmountTest, TrueAmountBelowZero) {
+	std::vector<int> prices{ -1,-10,-2,-5 };
+	int amountOfMoney = -100;
+	EXPECT_EQ(GetProductsAmount(prices, amountOfMoney), 0);
+
+	prices = {10,11 };
+	amountOfMoney = -1000;
+	EXPECT_EQ(GetProductsAmount(prices, amountOfMoney), 0);
+}
 TEST(GetProductsAmountTest, TrueNeedLessCoinsThanThereAre) {
 	std::vector<int> prices{ 50,30,20,10 };
 	int amountOfMoney = 50;
