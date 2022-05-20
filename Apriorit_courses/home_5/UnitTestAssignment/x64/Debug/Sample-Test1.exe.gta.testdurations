@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GtaTestDurations xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Executable>D:\OneDrive\Робочий стіл\UnitTestAssignment\x64\Debug\Sample-Test1.exe</Executable>
+  <TestDurations>
+    <TestDuration Test="TestCaseName.TestName" Duration="1" />
+    <TestDuration Test="GetProductsAmountTest.NeedLessCoinsThanThereAre" Duration="1" />
+    <TestDuration Test="GetProductsAmountTest.NeedMoreCoinsThanThereAre" Duration="1" />
+    <TestDuration Test="IsLeapYearTest.YearMultiplyBy400" Duration="1" />
+    <TestDuration Test="IsLeapYearTest.YearMultiplyBy100ButNo400" Duration="1" />
+    <TestDuration Test="IsLeapYearTest.YearMultiplyBy4ButNo100" Duration="1" />
+    <TestDuration Test="IsLeapYearTest.YearMultiplyByNo4" Duration="1" />
+    <TestDuration Test="IsLeapYearTest.TrueYearMultiplyBy400" Duration="1" />
+    <TestDuration Test="IsLeapYearTest.TrueYearMultiplyBy100ButNo400" Duration="1" />
+    <TestDuration Test="IsLeapYearTest.TrueYearMultiplyBy4ButNo100" Duration="1" />
+    <TestDuration Test="IsLeapYearTest.FalseYearIsLeap" Duration="2" />
+    <TestDuration Test="GetProductsAmountTest.TrueNeedLessCoinsThanThereAre" Duration="1" />
+    <TestDuration Test="GetProductsAmountTest.TrueNeedMoreCoinsThanThereAre" Duration="1" />
+  </TestDurations>
+</GtaTestDurations>
