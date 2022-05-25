@@ -16,7 +16,7 @@ Window {
     visible: true
     width: 640
     height: 480
-    title: qsTr("Gallery")
+    title: qsTr("photoViewer")
     Rectangle {
         width: parent.width
         height: 50
@@ -134,13 +134,25 @@ Window {
                 scale: PathView.elementScale
                 z: PathView.elementZ
                 source: fileURL
-                onFocusChanged: {
-                    if(focus) {
-                        width: 640; height: 430
-                    }else{
-                        width: 500; height: 400
+                MouseArea {
+                        anchors.fill: parent
+                        onClicked: {
+                            if(parent.width === 640){
+                                parent.width = 500
+                            }
+                            else{
+                                parent.width = 640
+                            }
+
+                            if(parent.height === 430){
+                                parent.height = 400
+                            }
+                            else{
+                                parent.height = 430
+                            }
+
+                        }
                     }
-                }
             }
         }
         ListModel {
@@ -190,6 +202,31 @@ Window {
                             height: 100
                             fillMode: Image.PreserveAspectCrop
                             source: fileURL
+                            /*MouseArea{
+                                anchors.fill: parent;
+                                onClicked: {
+                                    parent.width = 400;
+                                    parent.width = 400;
+                                }
+                            }*/
+
+                            /*onScaleChanged: {
+                                console.debug(scale)
+                                if ((width * scale) > f.width) {
+                                    var xoff = (f.width / 2 + f.contentX) * scale / prevScale;
+                                    f.contentX = xoff - f.width / 2
+                                }
+                                if ((height * scale) > f.height) {
+                                    var yoff = (f.height / 2 + f.contentY) * scale / prevScale;
+                                    f.contentY = yoff - f.height / 2
+                                }
+                                prevScale=scale;
+                            }
+                            onStatusChanged: {
+                                if (status===Image.Ready) {
+                                    f.fitToScreen();
+                                }
+                            }*/
                         }
                     }
                 }
